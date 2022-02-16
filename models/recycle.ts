@@ -44,14 +44,14 @@ RecycleModel.init(
   }
 );
 
-RecycleModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true,
-});
-RecycleModel.belongsTo(AddressModel, {
-  constraints: true,
-  foreignKeyConstraint: true,
-});
+// RecycleModel.belongsTo(UserModel, {
+//   constraints: true,
+//   foreignKeyConstraint: true,
+// });
+// RecycleModel.belongsTo(AddressModel, {
+//   constraints: true,
+//   foreignKeyConstraint: true,
+// });
 
 export default RecycleModel;
 

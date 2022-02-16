@@ -12,7 +12,7 @@ import {
   NonAttribute,
 } from "sequelize";
 import { sequelize } from "./index";
-import UserModel from "./user";
+// import UserModel from "./user";
 /* jslint node: true */
 class AddressModel extends Model<
   InferAttributes<AddressModel>,
@@ -70,9 +70,9 @@ AddressModel.init(
   }
 );
 
-AddressModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true,
-});
+// AddressModel.belongsTo(UserModel, {
+//   constraints: true,
+//   foreignKeyConstraint: true,
+// });
 
 export default AddressModel;

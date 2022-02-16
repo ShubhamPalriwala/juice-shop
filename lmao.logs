@@ -1,0 +1,11 @@
+
+> juice-shop@13.2.1 frisby
+> nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit
+
+
+=============================== Coverage summary ===============================
+Statements   : 8.43% ( 199/2360 )
+Branches     : 0.28% ( 3/1044 )
+Functions    : 0% ( 0/581 )
+Lines        : 7.13% ( 162/2271 )
+================================================================================

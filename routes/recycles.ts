@@ -3,22 +3,22 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
-import { Request, Response } from 'express'
+import { Request, Response } from "express";
+import RecycleModel from "../models/recycle";
 
-const utils = require('../lib/utils')
+const utils = require("../lib/utils");
 
 exports.getRecycleItem = () => (req: Request, res: Response) => {
-  models.Recycle.findAll({
+  RecycleModel.findAll({
     where: {
-      id: JSON.parse(req.params.id)
-    }
+      id: JSON.parse(req.params.id),
+    },
   }).then((Recycle) => {
-    return res.send(utils.queryResultToJson(Recycle))
-  })
-}
+    return res.send(utils.queryResultToJson(Recycle));
+  });
+};
 
 exports.blockRecycleItems = () => (req: Request, res: Response) => {
-  const errMsg = { err: 'Sorry, this endpoint is not supported.' }
-  return res.send(utils.queryResultToJson(errMsg))
-}
+  const errMsg = { err: "Sorry, this endpoint is not supported." };
+  return res.send(utils.queryResultToJson(errMsg));
+};

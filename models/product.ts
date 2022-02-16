@@ -26,7 +26,7 @@ class ProductModel extends Model<
 > {
   declare id: CreationOptional<number>;
   declare name: string;
-  declare description: string;
+  declare description: CreationOptional<string>;
   declare price: number;
   declare deluxePrice: number;
   declare image: string;
@@ -66,14 +66,14 @@ ProductModel.init(
   }
 );
 
-ProductModel.belongsToMany(BasketModel, {
-  through: BasketItemModel,
-  foreignKey: {
-    name: "ProductId",
-    // noUpdate: true
-    //TODO
-  },
-});
+// ProductModel.belongsToMany(BasketModel, {
+//   through: BasketItemModel,
+//   foreignKey: {
+//     name: "ProductId",
+//     // noUpdate: true
+//     //TODO
+//   },
+// });
 
 export default ProductModel;
 

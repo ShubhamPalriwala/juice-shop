@@ -71,7 +71,7 @@ FeedbackModel.init(
     sequelize,
   }
 );
-FeedbackModel.belongsTo(UserModel); // no FK constraint to allow anonymous feedback posts
+// FeedbackModel.belongsTo(UserModel); // no FK constraint to allow anonymous feedback posts
 
 export default FeedbackModel;
 // module.exports = (sequelize, { STRING, INTEGER }) => {

@@ -27,7 +27,8 @@ class BasketModel extends Model<
 > {
   declare UserId: number;
   declare id: CreationOptional<number>;
-  declare coupon: string;
+  declare coupon: string | null;
+  declare Products: CreationOptional<ProductModel[]>;
 }
 
 BasketModel.init(
@@ -46,17 +47,17 @@ BasketModel.init(
   }
 );
 
-BasketModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true,
-});
-BasketModel.belongsToMany(ProductModel, {
-  through: BasketItemModel,
-  foreignKey: {
-    name: "BasketId",
-    //TODO noUpdate: true
-  },
-});
+// BasketModel.belongsTo(UserModel, {
+//   constraints: true,
+//   foreignKeyConstraint: true,
+// });
+// BasketModel.belongsToMany(ProductModel, {
+//   through: BasketItemModel,
+//   foreignKey: {
+//     name: "BasketId",
+//     //TODO noUpdate: true
+//   },
+// });
 
 export default BasketModel;
 

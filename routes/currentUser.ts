@@ -3,30 +3,39 @@
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
-import { Request, Response } from 'express'
+import utils = require("../lib/utils");
+import { Request, Response } from "express";
 
-const security = require('../lib/insecurity')
-const cache = require('../data/datacache')
-const challenges = cache.challenges
+const security = require("../lib/insecurity");
+const cache = require("../data/datacache");
+const challenges = cache.challenges;
 
-module.exports = function retrieveLoggedInUser () {
+module.exports = function retrieveLoggedInUser() {
   return (req: Request, res: Response) => {
-    let user
+    let user;
     try {
       if (security.verify(req.cookies.token)) {
-        user = security.authenticatedUsers.get(req.cookies.token)
+        user = security.authenticatedUsers.get(req.cookies.token);
       }
     } catch (err) {
-      user = undefined
+      user = undefined;
     } finally {
-      const response = { user: { id: (user?.data ? user.data.id : undefined), email: (user?.data ? user.data.email : undefined), lastLoginIp: (user?.data ? user.data.lastLoginIp : undefined), profileImage: (user?.data ? user.data.profileImage : undefined) } }
+      const response = {
+        user: {
+          id: user?.data ? user.data.id : undefined,
+          email: user?.data ? user.data.email : undefined,
+          lastLoginIp: user?.data ? user.data.lastLoginIp : undefined,
+          profileImage: user?.data ? user.data.profileImage : undefined,
+        },
+      };
       if (req.query.callback === undefined) {
-        res.json(response)
+        res.json(response);
       } else {
-        utils.solveIf(challenges.emailLeakChallenge, () => { return true })
-        res.jsonp(response)
+        utils.solveIf(challenges.emailLeakChallenge, () => {
+          return true;
+        });
+        res.jsonp(response);
       }
     }
-  }
-}
+  };
+};

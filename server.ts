@@ -5,6 +5,20 @@
 import dataErasure from './routes/dataErasure'
 import fs = require('fs')
 import { Request, Response, NextFunction } from 'express'
+import UserModel from './models/user'
+import ProductModel from './models/product'
+import FeedbackModel from './models/feedback'
+import BasketItemModel from './models/basketitem'
+import ChallengeModel from './models/challenge'
+import ComplaintModel from './models/complaint'
+import RecycleModel from './models/recycle'
+import SecurityQuestionModel from './models/securityQuestion'
+import SecurityAnswerModel from './models/securityAnswer'
+import AddressModel from './models/address'
+import PrivacyRequestModel from './models/privacyRequests'
+import CardModel from './models/card'
+import QuantityModel from './models/quantity'
+import WalletModel from './models/wallet'
 const startTime = Date.now()
 const path = require('path')
 const morgan = require('morgan')
@@ -71,7 +85,7 @@ const likeProductReviews = require('./routes/likeProductReviews')
 const logger = require('./lib/logger')
 const utils = require('./lib/utils')
 const security = require('./lib/insecurity')
-const models = require('./models')
+import {sequelize} from './models/index'
 const datacreator = require('./data/datacreator')
 const app = express()
 const server = require('http').Server(app)
@@ -393,27 +407,27 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   // vuln-code-snippet start registerAdminChallenge
   /* Generated API endpoints */
-  finale.initialize({ app, sequelize: models.sequelize })
+  finale.initialize({ app, sequelize})
 
   const autoModels = [
-    { name: 'User', exclude: ['password', 'totpSecret'] },
-    { name: 'Product', exclude: [] },
-    { name: 'Feedback', exclude: [] },
-    { name: 'BasketItem', exclude: [] },
-    { name: 'Challenge', exclude: [] },
-    { name: 'Complaint', exclude: [] },
-    { name: 'Recycle', exclude: [] },
-    { name: 'SecurityQuestion', exclude: [] },
-    { name: 'SecurityAnswer', exclude: [] },
-    { name: 'Address', exclude: [] },
-    { name: 'PrivacyRequest', exclude: [] },
-    { name: 'Card', exclude: [] },
-    { name: 'Quantity', exclude: [] }
+    { name: 'User', exclude: ['password', 'totpSecret'], model:UserModel },
+    { name: 'Product', exclude: [], model:ProductModel },
+    { name: 'Feedback', exclude: [], model:FeedbackModel },
+    { name: 'BasketItem', exclude: [], model:BasketItemModel },
+    { name: 'Challenge', exclude: [] , model:ChallengeModel},
+    { name: 'Complaint', exclude: [] , model:ComplaintModel},
+    { name: 'Recycle', exclude: [] , model:RecycleModel},
+    { name: 'SecurityQuestion', exclude: [] , model:SecurityQuestionModel},
+    { name: 'SecurityAnswer', exclude: [] , model:SecurityAnswerModel},
+    { name: 'Address', exclude: [] , model:AddressModel},
+    { name: 'PrivacyRequest', exclude: [] , model:PrivacyRequestModel},
+    { name: 'Card', exclude: [] , model:CardModel},
+    { name: 'Quantity', exclude: [], model:QuantityModel }
   ]
 
-  for (const { name, exclude } of autoModels) {
+  for (const { name, exclude, model } of autoModels) {
     const resource = finale.resource({
-      model: models[name],
+      model: model,
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
       excludeAttributes: exclude
     })
@@ -421,7 +435,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     // create a wallet when a new user is registered using API
     if (name === 'User') { // vuln-code-snippet neutral-line registerAdminChallenge
       resource.create.send.before((req: Request, res: Response, context) => { // vuln-code-snippet vuln-line registerAdminChallenge
-        models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
+        WalletModel.create({ UserId: context.instance.id }).catch((err) => {
           console.log(err)
         })
         return context.continue // vuln-code-snippet neutral-line registerAdminChallenge
@@ -620,7 +634,9 @@ const customizeEasterEgg = require('./lib/startup/customizeEasterEgg') // vuln-c
 
 export async function start (readyCallback: Function) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
-  await models.sequelize.sync({ force: true })
+  console.log("Server starting here");
+  
+  await sequelize.sync({ force: true })
   await datacreator()
   datacreatorEnd()
   const port = process.env.PORT ?? config.get('server.port')

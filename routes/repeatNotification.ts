@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-import utils = require('../lib/utils')
-import { Request, Response } from 'express'
+import utils = require("../lib/utils");
+import { Request, Response } from "express";
 
-module.exports = function repeatNotification () {
+module.exports = function repeatNotification() {
   return ({ query }: Request, res: Response) => {
-    const challengeName: string = decodeURIComponent(query.challenge)
-    const challenge = utils.findChallengeByName(challengeName)
+    const challengeName: string = decodeURIComponent(query.toString());
+    const challenge = utils.findChallengeByName(challengeName);
 
     if (challenge?.solved) {
-      utils.sendNotification(challenge, true)
+      utils.sendNotification(challenge, true);
     }
 
-    res.sendStatus(200)
-  }
-}
+    res.sendStatus(200);
+  };
+};

@@ -54,10 +54,10 @@ QuantityModel.init(
   }
 );
 
-QuantityModel.belongsTo(ProductModel, {
-  constraints: true,
-  foreignKeyConstraint: true,
-});
+// QuantityModel.belongsTo(ProductModel, {
+//   constraints: true,
+//   foreignKeyConstraint: true,
+// });
 
 export default QuantityModel;
 

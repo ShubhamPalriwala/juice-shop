@@ -2,14 +2,14 @@
  * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-import models = require('../models/index')
+import {sequelize} from '../models/index'
 const fuzz = require('fuzzball')
 const security = require('./insecurity')
 const utils = require('./utils')
 const challenges = require('../data/datacache').challenges
 
 async function productPrice (query, user) {
-  const [products] = await models.sequelize.query('SELECT * FROM Products')
+  const [products] = await sequelize.query('SELECT * FROM Products')
   const queriedProducts = products
     .filter((product) => fuzz.partial_ratio(query, product.name) > 60)
     .map((product) => `${product.name} costs ${product.price}¤`)

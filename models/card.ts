@@ -66,10 +66,10 @@ CardModel.init(
     sequelize,
   }
 );
-CardModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true,
-});
+// CardModel.belongsTo(UserModel, {
+//   constraints: true,
+//   foreignKeyConstraint: true,
+// });
 
 export default CardModel;
 

@@ -3,31 +3,45 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response, NextFunction } from "express";
+import BasketModel from "../models/basket";
+import ProductModel from "../models/product";
 
-const utils = require('../lib/utils')
-const security = require('../lib/insecurity')
-const challenges = require('../data/datacache').challenges
+const utils = require("../lib/utils");
+const security = require("../lib/insecurity");
+const challenges = require("../data/datacache").challenges;
 
-module.exports = function retrieveBasket () {
+module.exports = function retrieveBasket() {
   return (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id
-    models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
-      .then(basket => {
+    const id = req.params.id;
+    BasketModel.findOne({
+      where: { id },
+      include: [{ model: ProductModel, as: "Products" }],
+      // include: [BasketModel.associations[0].target, ProductModel],
+    })
+      .then((basket) => {
         /* jshint eqeqeq:false */
         utils.solveIf(challenges.basketAccessChallenge, () => {
-          const user = security.authenticatedUsers.from(req)
-          return user && id && id !== 'undefined' && id !== 'null' && id !== 'NaN' && user.bid && user.bid != id // eslint-disable-line eqeqeq
-        })
+          const user = security.authenticatedUsers.from(req);
+          return (
+            user &&
+            id &&
+            id !== "undefined" &&
+            id !== "null" &&
+            id !== "NaN" &&
+            user.bid &&
+            user.bid != id
+          ); // eslint-disable-line eqeqeq
+        });
         if (basket?.Products && basket.Products.length > 0) {
           for (let i = 0; i < basket.Products.length; i++) {
-            basket.Products[i].name = req.__(basket.Products[i].name)
+            basket.Products[i].name = req.__(basket.Products[i].name);
           }
         }
-        res.json(utils.queryResultToJson(basket))
-      }).catch((error: Error) => {
-        next(error)
+        res.json(utils.queryResultToJson(basket));
       })
-  }
-}
+      .catch((error: Error) => {
+        next(error);
+      });
+  };
+};

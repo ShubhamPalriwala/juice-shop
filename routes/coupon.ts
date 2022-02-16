@@ -3,33 +3,38 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response, NextFunction } from "express";
+import BasketModel from "../models/basket";
 
-const security = require('../lib/insecurity')
+const security = require("../lib/insecurity");
 
-module.exports = function applyCoupon () {
+module.exports = function applyCoupon() {
   return ({ params }: Request, res: Response, next: NextFunction) => {
-    const id = params.id
-    let coupon = params.coupon ? decodeURIComponent(params.coupon) : undefined
-    const discount = security.discountFromCoupon(coupon)
-    coupon = discount ? coupon : null
-    models.Basket.findByPk(id).then(basket => {
-      if (basket) {
-        basket.update({ coupon }).then(() => {
-          if (discount) {
-            res.json({ discount })
-          } else {
-            res.status(404).send('Invalid coupon.')
-          }
-        }).catch((error: Error) => {
-          next(error)
-        })
-      } else {
-        next(new Error('Basket with id=' + id + ' does not exist.'))
-      }
-    }).catch((error: Error) => {
-      next(error)
-    })
-  }
-}
+    const id = params.id;
+    let coupon = params.coupon ? decodeURIComponent(params.coupon) : undefined;
+    const discount = security.discountFromCoupon(coupon);
+    coupon = discount ? coupon : undefined;
+    BasketModel.findByPk(id)
+      .then((basket) => {
+        if (basket) {
+          basket
+            .update({ coupon })
+            .then(() => {
+              if (discount) {
+                res.json({ discount });
+              } else {
+                res.status(404).send("Invalid coupon.");
+              }
+            })
+            .catch((error: Error) => {
+              next(error);
+            });
+        } else {
+          next(new Error("Basket with id=" + id + " does not exist."));
+        }
+      })
+      .catch((error: Error) => {
+        next(error);
+      });
+  };
+};

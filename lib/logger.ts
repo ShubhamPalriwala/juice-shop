@@ -3,11 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-import winston = require('winston')
+import winston = require("winston");
 
 module.exports = winston.createLogger({
   transports: [
-    new winston.transports.Console({ level: process.env.NODE_ENV === 'test' ? 'error' : 'info' })
+    new winston.transports.Console({
+      level: process.env.NODE_ENV === "test" ? "error" : "info",
+    }),
   ],
-  format: winston.format.simple()
-})
+  format: winston.format.simple(),
+});
+
+export function warn(arg0: string) {
+  throw new Error("Function not implemented.");
+}

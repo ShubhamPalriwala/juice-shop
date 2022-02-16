@@ -1,0 +1,210 @@
+
+> juice-shop@13.2.1 build:server
+> tsc
+
+data/datacreator.ts(178,13): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+data/datacreator.ts(278,9): error TS2322: Type 'number' is not assignable to type 'string'.
+data/datacreator.ts(321,26): error TS2345: Argument of type '{ email: string; password: string; }' is not assignable to parameter of type 'CreationAttributes<UserModel>'.
+  Type '{ email: string; password: string; }' is missing the following properties from type 'Omit<InferCreationAttributes<UserModel, { omit: never; }>, "id">': username, role, deluxeToken, lastLoginIp, and 3 more.
+data/datacreator.ts(496,29): error TS2345: Argument of type '{ id?: number | undefined; name: string; description: string; price?: number | undefined; deluxePrice?: number | undefined; quantity?: number | undefined; limitPerUser?: number | undefined; image?: string | undefined; deletedDate?: string | undefined; deletedAt?: string | ... 1 more ... | undefined; keywordsForPaste...' is not assignable to parameter of type 'CreationAttributes<ProductModel>'.
+  Type '{ id?: number | undefined; name: string; description: string; price?: number | undefined; deluxePrice?: number | undefined; quantity?: number | undefined; limitPerUser?: number | undefined; image?: string | undefined; deletedDate?: string | undefined; deletedAt?: string | ... 1 more ... | undefined; keywordsForPaste...' is not assignable to type 'Omit<InferCreationAttributes<ProductModel, { omit: never; }>, "id">'.
+    Types of property 'price' are incompatible.
+      Type 'number | undefined' is not assignable to type 'number'.
+        Type 'undefined' is not assignable to type 'number'.
+data/datacreator.ts(598,33): error TS2345: Argument of type '{ UserId: number; }' is not assignable to parameter of type 'CreationAttributes<BasketModel>'.
+  Property 'coupon' is missing in type '{ UserId: number; }' but required in type 'Omit<InferCreationAttributes<BasketModel, { omit: never; }>, "id">'.
+lib/accuracy.ts(10,31): error TS7006: Parameter 'challengeKey' implicitly has an 'any' type.
+lib/accuracy.ts(14,30): error TS7006: Parameter 'challengeKey' implicitly has an 'any' type.
+lib/accuracy.ts(18,36): error TS7006: Parameter 'challengeKey' implicitly has an 'any' type.
+lib/accuracy.ts(22,35): error TS7006: Parameter 'challengeKey' implicitly has an 'any' type.
+lib/accuracy.ts(34,30): error TS7006: Parameter 'challengeKey' implicitly has an 'any' type.
+lib/accuracy.ts(35,10): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+lib/accuracy.ts(35,33): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+lib/accuracy.ts(42,9): error TS2571: Object is of type 'unknown'.
+lib/accuracy.ts(43,26): error TS2571: Object is of type 'unknown'.
+lib/accuracy.ts(50,29): error TS7006: Parameter 'challengeKey' implicitly has an 'any' type.
+lib/accuracy.ts(52,7): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+lib/accuracy.ts(53,20): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+lib/accuracy.ts(59,24): error TS7006: Parameter 'challengeKey' implicitly has an 'any' type.
+lib/accuracy.ts(60,8): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+lib/accuracy.ts(61,5): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+lib/accuracy.ts(63,8): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+lib/accuracy.ts(64,5): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+lib/accuracy.ts(65,5): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+lib/antiCheat.ts(23,32): error TS7006: Parameter 'challenge' implicitly has an 'any' type.
+lib/antiCheat.ts(42,44): error TS7006: Parameter 'challenge' implicitly has an 'any' type.
+lib/antiCheat.ts(59,43): error TS7006: Parameter 'challenge' implicitly has an 'any' type.
+lib/antiCheat.ts(77,22): error TS7006: Parameter 'challenge' implicitly has an 'any' type.
+lib/antiCheat.ts(77,33): error TS7006: Parameter 'previousChallenge' implicitly has an 'any' type.
+lib/antiCheat.ts(78,11): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ loginAdminChallenge: string[]; nullByteChallenge: string[]; deprecatedInterfaceChallenge: string[]; uploadSizeChallenge: string[]; uploadTypeChallenge: string[]; }'.
+lib/antiCheat.ts(78,47): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ loginAdminChallenge: string[]; nullByteChallenge: string[]; deprecatedInterfaceChallenge: string[]; uploadSizeChallenge: string[]; uploadTypeChallenge: string[]; }'.
+lib/antiCheat.ts(79,6): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ loginAdminChallenge: string[]; nullByteChallenge: string[]; deprecatedInterfaceChallenge: string[]; uploadSizeChallenge: string[]; uploadTypeChallenge: string[]; }'.
+lib/antiCheat.ts(79,50): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ loginAdminChallenge: string[]; nullByteChallenge: string[]; deprecatedInterfaceChallenge: string[]; uploadSizeChallenge: string[]; uploadTypeChallenge: string[]; }'.
+lib/antiCheat.ts(82,21): error TS7006: Parameter 'challenge' implicitly has an 'any' type.
+lib/botUtils.ts(11,30): error TS7006: Parameter 'query' implicitly has an 'any' type.
+lib/botUtils.ts(11,37): error TS7006: Parameter 'user' implicitly has an 'any' type.
+lib/botUtils.ts(14,14): error TS7006: Parameter 'product' implicitly has an 'any' type.
+lib/botUtils.ts(15,11): error TS7006: Parameter 'product' implicitly has an 'any' type.
+lib/botUtils.ts(22,22): error TS7006: Parameter 'query' implicitly has an 'any' type.
+lib/botUtils.ts(22,29): error TS7006: Parameter 'user' implicitly has an 'any' type.
+lib/botUtils.ts(30,24): error TS7006: Parameter 'query' implicitly has an 'any' type.
+lib/botUtils.ts(30,31): error TS7006: Parameter 'user' implicitly has an 'any' type.
+lib/startup/customizeApplication.ts(72,35): error TS7006: Parameter 'sourceProperty' implicitly has an 'any' type.
+lib/startup/customizeApplication.ts(72,51): error TS7006: Parameter 'destinationFolder' implicitly has an 'any' type.
+lib/startup/customizeEasterEgg.ts(25,27): error TS7006: Parameter 'overlay' implicitly has an 'any' type.
+lib/startup/registerWebsocketEvents.ts(11,5): error TS7034: Variable 'firstConnectedSocket' implicitly has type 'any' in some locations where its type cannot be determined.
+lib/startup/registerWebsocketEvents.ts(13,34): error TS7006: Parameter 'server' implicitly has an 'any' type.
+lib/startup/registerWebsocketEvents.ts(17,23): error TS7006: Parameter 'socket' implicitly has an 'any' type.
+lib/startup/registerWebsocketEvents.ts(18,9): error TS7005: Variable 'firstConnectedSocket' implicitly has an 'any' type.
+lib/startup/registerWebsocketEvents.ts(23,27): error TS7006: Parameter 'notification' implicitly has an 'any' type.
+lib/startup/registerWebsocketEvents.ts(27,40): error TS7006: Parameter 'data' implicitly has an 'any' type.
+lib/startup/registerWebsocketEvents.ts(28,44): error TS7031: Binding element 'flag' implicitly has an 'any' type.
+lib/startup/registerWebsocketEvents.ts(34,42): error TS7006: Parameter 'data' implicitly has an 'any' type.
+lib/startup/registerWebsocketEvents.ts(39,46): error TS7006: Parameter 'data' implicitly has an 'any' type.
+lib/startup/restoreOverwrittenFilesWithOriginals.ts(14,17): error TS7006: Parameter 'path' implicitly has an 'any' type.
+lib/startup/restoreOverwrittenFilesWithOriginals.ts(29,18): error TS7006: Parameter 'filename' implicitly has an 'any' type.
+lib/startup/restoreOverwrittenFilesWithOriginals.ts(32,76): error TS2571: Object is of type 'unknown'.
+lib/startup/validateChatBot.ts(11,26): error TS7006: Parameter 'trainingData' implicitly has an 'any' type.
+lib/startup/validateChatBot.ts(29,47): error TS7006: Parameter 'trainingData' implicitly has an 'any' type.
+lib/startup/validateChatBot.ts(29,61): error TS7006: Parameter 'intent' implicitly has an 'any' type.
+lib/startup/validateChatBot.ts(29,69): error TS7006: Parameter 'handler' implicitly has an 'any' type.
+lib/startup/validateChatBot.ts(31,47): error TS7006: Parameter 'data' implicitly has an 'any' type.
+lib/startup/validateChatBot.ts(36,38): error TS7006: Parameter 'answer' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(55,29): error TS7031: Binding element 'path' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(55,35): error TS7031: Binding element 'message' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(63,47): error TS7006: Parameter 'products' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(72,51): error TS7006: Parameter 'products' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(75,47): error TS7006: Parameter 'product' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(87,51): error TS7006: Parameter 'products' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(90,47): error TS7006: Parameter 'product' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(99,39): error TS7006: Parameter 'products' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(101,21): error TS7006: Parameter 'product' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(111,47): error TS7006: Parameter 'memories' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(120,51): error TS7006: Parameter 'memories' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(123,47): error TS7006: Parameter 'memory' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(135,51): error TS7006: Parameter 'memories' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(138,47): error TS7006: Parameter 'memory' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(147,39): error TS7006: Parameter 'memories' implicitly has an 'any' type.
+lib/startup/validateConfig.ts(149,21): error TS7006: Parameter 'memory' implicitly has an 'any' type.
+lib/startup/validateDependencies.ts(22,110): error TS2571: Object is of type 'unknown'.
+lib/startup/validateDependencies.ts(25,20): error TS2339: Property 'depsWereOk' does not exist on type '{}'.
+lib/startup/validateDependencies.ts(30,36): error TS2339: Property 'error' does not exist on type '{}'.
+lib/startup/validatePreconditions.ts(43,47): error TS7006: Parameter 'runningVersion' implicitly has an 'any' type.
+lib/startup/validatePreconditions.ts(54,38): error TS7006: Parameter 'runningOS' implicitly has an 'any' type.
+lib/startup/validatePreconditions.ts(64,39): error TS7006: Parameter 'runningArch' implicitly has an 'any' type.
+lib/startup/validatePreconditions.ts(74,39): error TS7006: Parameter 'port' implicitly has an 'any' type.
+lib/startup/validatePreconditions.ts(76,49): error TS7006: Parameter 'error' implicitly has an 'any' type.
+lib/startup/validatePreconditions.ts(76,56): error TS7006: Parameter 'status' implicitly has an 'any' type.
+lib/startup/validatePreconditions.ts(92,42): error TS7006: Parameter 'pathRelativeToProjectRoot' implicitly has an 'any' type.
+lib/utils.ts(98,12): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ "body-parser": string; "check-dependencies": string; clarinet: string; colors: string; compression: string; concurrently: string; config: string; "cookie-parser": string; cors: string; dottie: string; ... 60 more ...; z85: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ "body-parser": string; "check-dependencies": string; clarinet: string; colors: string; compression: string; concurrently: string; config: string; "cookie-parser": string; cors: string; dottie: string; ... 60 more ...; z85: string; }'.
+lib/utils.ts(125,60): error TS7006: Parameter 'error' implicitly has an 'any' type.
+lib/utils.ts(148,17): error TS2339: Property 'emit' does not exist on type 'SocketIOClientStatic'.
+lib/utils.ts(196,7): error TS2532: Object is possibly 'undefined'.
+lib/utils.ts(206,58): error TS2339: Property 'statusMessage' does not exist on type 'Error'.
+lib/utils.ts(251,40): error TS7006: Parameter 'k' implicitly has an 'any' type.
+lib/utils.ts(254,20): error TS7006: Parameter 'v' implicitly has an 'any' type.
+routes/2fa.ts(52,7): error TS2322: Type '{}' is not assignable to type 'CreationAttributes<BasketModel>'.
+  Type '{}' is missing the following properties from type 'Omit<InferCreationAttributes<BasketModel, { omit: never; }>, "id">': UserId, coupon
+routes/basket.ts(37,21): error TS2339: Property 'Products' does not exist on type 'BasketModel'.
+routes/basket.ts(37,40): error TS2339: Property 'Products' does not exist on type 'BasketModel'.
+routes/basket.ts(38,38): error TS2339: Property 'Products' does not exist on type 'BasketModel'.
+routes/basket.ts(39,20): error TS2339: Property 'Products' does not exist on type 'BasketModel'.
+routes/basket.ts(39,53): error TS2339: Property 'Products' does not exist on type 'BasketModel'.
+routes/login.ts(26,14): error TS2339: Property 'bid' does not exist on type 'UserModel'.
+routes/metrics.ts(158,18): error TS2339: Property 'difficulty' does not exist on type 'unknown'.
+routes/metrics.ts(158,30): error TS2339: Property 'category' does not exist on type 'unknown'.
+routes/metrics.ts(158,40): error TS2339: Property 'solved' does not exist on type 'unknown'.
+routes/metrics.ts(184,44): error TS2304: Cannot find name 'Op'.
+routes/metrics.ts(190,44): error TS2304: Cannot find name 'Op'.
+routes/metrics.ts(196,44): error TS2304: Cannot find name 'Op'.
+routes/metrics.ts(209,28): error TS7006: Parameter 'orders' implicitly has an 'any' type.
+routes/metrics.ts(213,29): error TS7006: Parameter 'reviews' implicitly has an 'any' type.
+routes/metrics.ts(217,41): error TS2304: Cannot find name 'Op'.
+routes/metrics.ts(222,41): error TS2304: Cannot find name 'Op'.
+routes/order.ts(53,29): error TS2322: Type 'null' is not assignable to type 'string | Col | Fn | Literal | undefined'.
+routes/order.ts(54,48): error TS2322: Type '{ BasketId: number; }' is not assignable to type 'WhereOptions<InferAttributes<BasketItemModel, { omit: never; }>> | undefined'.
+  Object literal may only specify known properties, and 'BasketId' does not exist in type 'WhereOptions<InferAttributes<BasketItemModel, { omit: never; }>>'.
+routes/order.ts(83,18): error TS2339: Property 'Products' does not exist on type 'BasketModel'.
+routes/order.ts(84,16): error TS7031: Binding element 'BasketItem' implicitly has an 'any' type.
+routes/order.ts(84,28): error TS7031: Binding element 'price' implicitly has an 'any' type.
+routes/order.ts(84,35): error TS7031: Binding element 'deluxePrice' implicitly has an 'any' type.
+routes/order.ts(84,48): error TS7031: Binding element 'name' implicitly has an 'any' type.
+routes/order.ts(84,54): error TS7031: Binding element 'id' implicitly has an 'any' type.
+routes/order.ts(123,35): error TS2345: Argument of type '{ quantity: any; id: any; name: string; price: any; total: number; bonus: number; }' is not assignable to parameter of type 'Product'.
+  Property 'description' is missing in type '{ quantity: any; id: any; name: string; price: any; total: number; bonus: number; }' but required in type 'Product'.
+routes/order.ts(151,13): error TS2322: Type 'DeliveryModel | null' is not assignable to type '{ deluxePrice: number; price: number; eta: number; }'.
+  Type 'null' is not assignable to type '{ deluxePrice: number; price: number; eta: number; }'.
+routes/order.ts(253,22): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ WMNSDY2019: { validOn: number; discount: number; }; WMNSDY2020: { validOn: number; discount: number; }; WMNSDY2021: { validOn: number; discount: number; }; WMNSDY2022: { validOn: number; discount: number; }; ... 4 more ...; ORANGE2023: { ...; }; }'.
+  No index signature with a parameter of type 'string' was found on type '{ WMNSDY2019: { validOn: number; discount: number; }; WMNSDY2020: { validOn: number; discount: number; }; WMNSDY2021: { validOn: number; discount: number; }; WMNSDY2022: { validOn: number; discount: number; }; ... 4 more ...; ORANGE2023: { ...; }; }'.
+routes/profileImageFileUpload.ts(38,28): error TS2345: Argument of type 'Buffer | undefined' is not assignable to parameter of type 'ArrayBufferView'.
+  Type 'undefined' is not assignable to type 'ArrayBufferView'.
+routes/search.ts(50,21): error TS7031: Binding element 'data' implicitly has an 'any' type.
+routes/showProductReviews.ts(14,8): error TS2339: Property 'sleep' does not exist on type 'Global & typeof globalThis'.
+routes/showProductReviews.ts(46,24): error TS2554: Expected 2 arguments, but got 1.
+routes/trackOrder.ts(24,30): error TS2554: Expected 2 arguments, but got 1.
+rsn/rsnUtil.ts(18,29): error TS7006: Parameter 'file' implicitly has an 'any' type.
+rsn/rsnUtil.ts(128,57): error TS2345: Argument of type '(a: number, b: number) => boolean' is not assignable to parameter of type '(a: number, b: number) => number'.
+  Type 'boolean' is not assignable to type 'number'.
+rsn/rsnUtil.ts(129,49): error TS2345: Argument of type '(a: number, b: number) => boolean' is not assignable to parameter of type '(a: number, b: number) => number'.
+  Type 'boolean' is not assignable to type 'number'.
+rsn/rsnUtil.ts(130,59): error TS2345: Argument of type '(a: number, b: number) => boolean' is not assignable to parameter of type '(a: number, b: number) => number'.
+  Type 'boolean' is not assignable to type 'number'.
+rsn/rsnUtil.ts(131,56): error TS2345: Argument of type '(a: number, b: number) => boolean' is not assignable to parameter of type '(a: number, b: number) => number'.
+  Type 'boolean' is not assignable to type 'number'.
+server.ts(111,47): error TS7006: Parameter 'func' implicitly has an 'any' type.
+server.ts(112,17): error TS7019: Rest parameter 'args' implicitly has an 'any[]' type.
+server.ts(194,5): error TS2322: Type '() => void' is not assignable to type '{ (cb?: (() => void) | undefined): Response<any, Record<string, any>>; (chunk: any, cb?: (() => void) | undefined): Response<any, Record<string, any>>; (chunk: any, encoding: BufferEncoding, cb?: (() => void) | undefined): Response<...>; }'.
+  Type 'void' is not assignable to type 'Response<any, Record<string, any>>'.
+server.ts(210,27): error TS2345: Argument of type 'IArguments' is not assignable to parameter of type '[chunk: any, encoding: BufferEncoding, cb?: (() => void) | undefined]'.
+server.ts(423,65): error TS7006: Parameter 'context' implicitly has an 'any' type.
+server.ts(424,70): error TS7006: Parameter 'err' implicitly has an 'any' type.
+server.ts(434,63): error TS7006: Parameter 'context' implicitly has an 'any' type.
+server.ts(450,63): error TS7006: Parameter 'context' implicitly has an 'any' type.
+server.ts(461,63): error TS7006: Parameter 'context' implicitly has an 'any' type.
+server.ts(467,63): error TS7006: Parameter 'context' implicitly has an 'any' type.
+server.ts(475,63): error TS7006: Parameter 'context' implicitly has an 'any' type.
+server.ts(482,63): error TS7006: Parameter 'context' implicitly has an 'any' type.
+server.ts(490,60): error TS7006: Parameter 'context' implicitly has an 'any' type.
+server.ts(591,19): error TS7006: Parameter 'req' implicitly has an 'any' type.
+server.ts(591,24): error TS7006: Parameter 'file' implicitly has an 'any' type.
+server.ts(592,23): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ 'image/png': string; 'image/jpeg': string; 'image/jpg': string; }'.
+server.ts(599,16): error TS7006: Parameter 'req' implicitly has an 'any' type.
+server.ts(599,21): error TS7006: Parameter 'file' implicitly has an 'any' type.
+server.ts(604,19): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ 'image/png': string; 'image/jpeg': string; 'image/jpg': string; }'.
+test/api/2faSpec.ts(20,20): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(32,21): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(45,15): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(59,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(102,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(129,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(147,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(166,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(190,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(213,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(228,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(246,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(272,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(300,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(328,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(354,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(383,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(389,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(402,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(417,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(423,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/2faSpec.ts(436,5): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/chatBotSpec.ts(17,20): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/chatBotSpec.ts(56,14): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/chatBotSpec.ts(78,14): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/chatBotSpec.ts(106,14): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/chatBotSpec.ts(132,14): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/chatBotSpec.ts(164,14): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/chatBotSpec.ts(194,14): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/chatBotSpec.ts(240,14): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/deluxeApiSpec.ts(14,20): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/deluxeApiSpec.ts(107,12): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/deluxeApiSpec.ts(130,12): error TS1320: Type of 'await' operand must either be a valid promise or must not contain a callable 'then' member.
+test/api/fileServingSpec.ts(17,5): error TS2322: Type 'boolean' is not assignable to type 'string'.
+test/e2e/directAccessSpec.ts(16,5): error TS2322: Type 'boolean' is not assignable to type 'string'.

@@ -43,10 +43,10 @@ MemoryModel.init(
   }
 );
 
-MemoryModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true,
-});
+// MemoryModel.belongsTo(UserModel, {
+//   constraints: true,
+//   foreignKeyConstraint: true,
+// });
 
 export default MemoryModel;
 // export = (sequelize, { STRING, INTEGER }) => {
