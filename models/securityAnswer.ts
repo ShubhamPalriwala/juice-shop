@@ -12,8 +12,6 @@ import {
   CreationOptional
 } from 'sequelize'
 import { sequelize } from './index'
-import SecurityQuestionModel from './securityQuestion'
-import UserModel from './user'
 const security = require('../lib/insecurity')
 
 class SecurityAnswerModel extends Model<

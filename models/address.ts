@@ -11,7 +11,6 @@ import {
   DataTypes
 } from 'sequelize'
 import { sequelize } from './index'
-import UserModel from './user'
 /* jslint node: true */
 class AddressModel extends Model<
 InferAttributes<AddressModel>,

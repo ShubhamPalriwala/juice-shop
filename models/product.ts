@@ -14,7 +14,6 @@ import {
 } from 'sequelize'
 import { sequelize } from './index'
 import BasketItemModel from './basketitem'
-import BasketModel from './basket'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 

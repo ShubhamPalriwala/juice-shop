@@ -14,7 +14,6 @@ import {
   CreationOptional
 } from 'sequelize'
 import { sequelize } from './index'
-import UserModel from './user'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 

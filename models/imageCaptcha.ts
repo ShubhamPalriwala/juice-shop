@@ -11,7 +11,6 @@ import {
   CreationOptional
 } from 'sequelize'
 import { sequelize } from './index'
-import UserModel from './user'
 
 class ImageCaptchaModel extends Model<
 InferAttributes<ImageCaptchaModel>,

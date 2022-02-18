@@ -13,7 +13,6 @@ import {
   CreationOptional
 } from 'sequelize'
 import { sequelize } from './index'
-import UserModel from './user'
 
 class PrivacyRequestModel extends Model<
 InferAttributes<PrivacyRequestModel>,

@@ -14,8 +14,6 @@ import {
   NonAttribute
 } from 'sequelize'
 import { sequelize } from './index'
-import BasketItemModel from './basketitem'
-import UserModel from './user'
 import ProductModel from './product'
 
 class BasketModel extends Model<

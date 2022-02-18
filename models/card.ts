@@ -12,7 +12,6 @@ import {
   CreationOptional
 } from 'sequelize'
 import { sequelize } from './index'
-import UserModel from './user'
 
 class CardModel extends Model<
 InferAttributes<CardModel>,

@@ -12,9 +12,7 @@ import {
   DataTypes,
   CreationOptional
 } from 'sequelize'
-import AddressModel from './address'
 import { sequelize } from './index'
-import UserModel from './user'
 
 class RecycleModel extends Model<
 InferAttributes<RecycleModel>,

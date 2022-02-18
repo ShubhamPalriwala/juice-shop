@@ -13,7 +13,6 @@ import {
   CreationOptional
 } from 'sequelize'
 import { sequelize } from './index'
-import ProductModel from './product'
 
 class QuantityModel extends Model<
 InferAttributes<QuantityModel>,

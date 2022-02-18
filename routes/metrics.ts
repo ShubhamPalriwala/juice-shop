@@ -167,14 +167,20 @@ exports.observeMetrics = function observeMetrics () {
     void retrieveChallengesWithCodeSnippet().then(challenges => {
       ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }).then((count: number) => {
         codingChallengesProgressMetrics.set({ phase: 'find it' }, count)
+      }).catch((_err: unknown) => {
+        logger.error('Could not get count for the given challenge')
       })
 
       ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }).then((count: number) => {
         codingChallengesProgressMetrics.set({ phase: 'fix it' }, count)
+      }).catch((_err: unknown) => {
+        logger.error('Could not get count for the given challenge')
       })
 
       ChallengeModel.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }).then((count: number) => {
         codingChallengesProgressMetrics.set({ phase: 'unsolved' }, challenges.length - count)
+      }).catch((_err: unknown) => {
+        logger.error('Could not get count for the given challenge')
       })
     })
 
@@ -188,30 +194,44 @@ exports.observeMetrics = function observeMetrics () {
 
     reviews.count({}).then((reviewCount: Number) => {
       interactionsMetrics.set({ type: 'review' }, reviewCount)
+    }).catch((_err: unknown) => {
+      logger.error('Could not get count for the given review')
     })
 
     UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
       userMetrics.set({ type: 'standard' }, count)
+    }).catch((_err: unknown) => {
+      logger.error('Could not get count for the given user')
     })
 
     UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
       userMetrics.set({ type: 'deluxe' }, count)
+    }).catch((_err: unknown) => {
+      logger.error('Could not get count for the given user')
     })
 
     UserModel.count().then((count: Number) => {
       userTotalMetrics.set(count)
+    }).catch((_err: unknown) => {
+      logger.error('Could not get count for the given user')
     })
 
     WalletModel.sum('balance').then((totalBalance: Number) => {
       walletMetrics.set(totalBalance)
+    }).catch((_err: unknown) => {
+      logger.error('Could not get count for the given wallet')
     })
 
     FeedbackModel.count().then((count: number) => {
       interactionsMetrics.set({ type: 'feedback' }, count)
+    }).catch((_err: unknown) => {
+      logger.error('Could not get count for the given feedback')
     })
 
     ComplaintModel.count().then((count: number) => {
       interactionsMetrics.set({ type: 'complaint' }, count)
+    }).catch((_err: unknown) => {
+      logger.error('Could not get count for the given compalint')
     })
   }, 5000)
 

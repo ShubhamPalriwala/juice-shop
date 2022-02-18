@@ -172,6 +172,8 @@ function feedbackChallenge () {
     if (count === 0) {
       utils.solve(challenges.feedbackChallenge)
     }
+  }).catch((_err: unknown) => {
+    logger.error('Could not get the feedback count')
   })
 }
 

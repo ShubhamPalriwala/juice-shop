@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: false */
+/* jslint node: true */
 const sequelizeNoUpdateAttributes = require('sequelize-notupdate-attributes')
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('database', 'username', 'password', {
@@ -21,6 +21,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 })
 sequelizeNoUpdateAttributes(sequelize)
 
+// Keep this imports after the creation of sequelize
 import AddressModel from './address'
 import BasketModel from './basket'
 import BasketItemModel from './basketitem'
