@@ -1,0 +1,11 @@
+
+> juice-shop@13.3.0-SNAPSHOT test:server
+> nyc --report-dir=./build/reports/coverage/server-tests mocha -r ts-node/register -r source-map-support/register --recursive test/server/**/*.ts
+
+
+=============================== Coverage summary ===============================
+Statements   : 9.06% ( 218/2404 )
+Branches     : 0.28% ( 3/1053 )
+Functions    : 0% ( 0/614 )
+Lines        : 8.05% ( 178/2209 )
+================================================================================

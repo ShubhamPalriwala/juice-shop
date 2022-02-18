@@ -5,18 +5,49 @@
 
 /* jslint node: true */
 import utils = require('../lib/utils')
+
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
-module.exports = (sequelize, { STRING, INTEGER }) => {
-  const Feedback = sequelize.define('Feedback', {
+class FeedbackModel extends Model<
+InferAttributes<FeedbackModel>,
+InferCreationAttributes<FeedbackModel>
+> {
+  declare UserId: number | null
+  declare id: CreationOptional<number>
+  declare comment: string
+  declare rating: number
+}
+
+FeedbackModel.init(
+  // @ts-expect-error
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     comment: {
-      type: STRING,
-      set (comment) {
-        let sanitizedComment
+      type: DataTypes.STRING,
+      set (comment: string) {
+        let sanitizedComment: string
         if (!utils.disableOnContainerEnv()) {
           sanitizedComment = security.sanitizeHtml(comment)
-          utils.solveIf(challenges.persistedXssFeedbackChallenge, () => { return utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">') })
+          utils.solveIf(challenges.persistedXssFeedbackChallenge, () => {
+            return utils.contains(
+              sanitizedComment,
+              '<iframe src="javascript:alert(`xss`)">'
+            )
+          })
         } else {
           sanitizedComment = security.sanitizeSecure(comment)
         }
@@ -24,18 +55,20 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
       }
     },
     rating: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
-      set (rating) {
+      set (rating: number) {
         this.setDataValue('rating', rating)
-        utils.solveIf(challenges.zeroStarsChallenge, () => { return rating === 0 })
+        utils.solveIf(challenges.zeroStarsChallenge, () => {
+          return rating === 0
+        })
       }
     }
-  })
-
-  Feedback.associate = ({ User }) => {
-    Feedback.belongsTo(User) // no FK constraint to allow anonymous feedback posts
+  },
+  {
+    tableName: 'Feedback',
+    sequelize
   }
+)
 
-  return Feedback
-}
+export default FeedbackModel

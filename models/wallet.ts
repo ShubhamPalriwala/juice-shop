@@ -4,20 +4,45 @@
  */
 
 /* jslint node: true */
-export = (sequelize, { INTEGER }) => {
-  const Wallet = sequelize.define('Wallet', {
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
+
+class WalletModel extends Model<
+InferAttributes<WalletModel>,
+InferCreationAttributes<WalletModel>
+> {
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare balance: CreationOptional<number>
+}
+
+WalletModel.init(
+  // @ts-expect-error
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     balance: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       validate: {
         isInt: true
       },
       defaultValue: 0
     }
-  })
-
-  Wallet.associate = ({ User }) => {
-    Wallet.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
+  },
+  {
+    tableName: 'Wallet',
+    sequelize
   }
+)
 
-  return Wallet
-}
+export default WalletModel

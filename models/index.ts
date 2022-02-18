@@ -3,10 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: true */
-import fs = require('fs')
-import { Model } from 'sequelize'
-const path = require('path')
+/* jslint node: false */
 const sequelizeNoUpdateAttributes = require('sequelize-notupdate-attributes')
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('database', 'username', 'password', {
@@ -23,25 +20,83 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   logging: false
 })
 sequelizeNoUpdateAttributes(sequelize)
-const db: Database = { sequelize, Sequelize }
 
-fs.readdirSync(__dirname)
-  .filter(file => (file.match(/\.[jt]s$/) != null) && !file.includes('index.'))
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
-    db[model.name] = model
-  })
+import AddressModel from './address'
+import BasketModel from './basket'
+import BasketItemModel from './basketitem'
+import ComplaintModel from './complaint'
+import FeedbackModel from './feedback'
+import ImageCaptchaModel from './imageCaptcha'
+import MemoryModel from './memory'
+import PrivacyRequestModel from './privacyRequests'
+import ProductModel from './product'
+import QuantityModel from './quantity'
+import RecycleModel from './recycle'
+import SecurityAnswerModel from './securityAnswer'
+import SecurityQuestionModel from './securityQuestion'
+import UserModel from './user'
+import WalletModel from './wallet'
 
-Object.keys(db).forEach(modelName => {
-  if ('associate' in db[modelName]) {
-    db[modelName].associate(db)
+AddressModel.belongsTo(UserModel, {
+  constraints: true,
+  foreignKeyConstraint: true
+})
+BasketModel.belongsTo(UserModel, {
+  constraints: true,
+  foreignKeyConstraint: true
+})
+BasketModel.belongsToMany(ProductModel, {
+  through: BasketItemModel,
+  foreignKey: {
+    name: 'BasketId'
+    // TODO noUpdate: true
   }
 })
+ComplaintModel.belongsTo(UserModel, {
+  constraints: true,
+  foreignKeyConstraint: true
+})
+FeedbackModel.belongsTo(UserModel) // no FK constraint to allow anonymous feedback posts
+ImageCaptchaModel.belongsTo(UserModel)
+MemoryModel.belongsTo(UserModel, {
+  constraints: true,
+  foreignKeyConstraint: true
+})
+PrivacyRequestModel.belongsTo(UserModel, {
+  constraints: true,
+  foreignKeyConstraint: true
+})
+ProductModel.belongsToMany(BasketModel, {
+  through: BasketItemModel,
+  foreignKey: {
+    name: 'ProductId'
+    // noUpdate: true
+    // TODO
+  }
+})
+QuantityModel.belongsTo(ProductModel, {
+  constraints: true,
+  foreignKeyConstraint: true
+})
+RecycleModel.belongsTo(UserModel, {
+  constraints: true,
+  foreignKeyConstraint: true
+})
+RecycleModel.belongsTo(AddressModel, {
+  constraints: true,
+  foreignKeyConstraint: true
+})
+SecurityAnswerModel.belongsTo(UserModel)
+SecurityAnswerModel.belongsTo(SecurityQuestionModel, {
+  constraints: true,
+  foreignKeyConstraint: true
+})
+WalletModel.belongsTo(UserModel, {
+  constraints: true,
+  foreignKeyConstraint: true
+})
 
-module.exports = db
+sequelize
+  .sync({ force: false, logging: false })
 
-interface Database {
-  sequelize: any
-  Sequelize: any
-  [key: string]: Model
-}
+export { sequelize }

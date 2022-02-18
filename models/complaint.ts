@@ -5,15 +5,41 @@
 
 /* jslint node: true */
 
-export = (sequelize, { STRING }) => {
-  const Complaint = sequelize.define('Complaint', {
-    message: STRING,
-    file: STRING
-  })
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
 
-  Complaint.associate = ({ User }) => {
-    Complaint.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
-  }
-
-  return Complaint
+class ComplaintModel extends Model<
+InferAttributes<ComplaintModel>,
+InferCreationAttributes<ComplaintModel>
+> {
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare message: string
+  declare file: CreationOptional<string>
 }
+
+ComplaintModel.init(
+  // @ts-expect-error
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    message: DataTypes.STRING,
+    file: DataTypes.STRING
+  },
+  {
+    tableName: 'Complaint',
+    sequelize
+  }
+)
+
+export default ComplaintModel

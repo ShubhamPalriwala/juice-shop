@@ -3,17 +3,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
 import { Challenge, Product } from '../data/types'
 import { JwtPayload, VerifyErrors } from 'jsonwebtoken'
+import FeedbackModel from '../models/feedback'
+import ComplaintModel from '../models/complaint'
+import { Op } from 'sequelize'
 
 const utils = require('../lib/utils')
 const security = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
 const jws = require('jws')
 const cache = require('../data/datacache')
-const Op = models.Sequelize.Op
 const challenges = cache.challenges
 const products = cache.products
 const config = require('config')
@@ -167,7 +168,7 @@ function changeProductChallenge (osaft: Product) {
 }
 
 function feedbackChallenge () {
-  models.Feedback.findAndCountAll({ where: { rating: 5 } }).then(({ count }: { count: number }) => {
+  FeedbackModel.findAndCountAll({ where: { rating: 5 } }).then(({ count }: { count: number }) => {
     if (count === 0) {
       utils.solve(challenges.feedbackChallenge)
     }
@@ -175,7 +176,7 @@ function feedbackChallenge () {
 }
 
 function knownVulnerableComponentChallenge () {
-  models.Feedback.findAndCountAll({
+  FeedbackModel.findAndCountAll({
     where: {
       comment: {
         [Op.or]: knownVulnerableComponents()
@@ -185,8 +186,10 @@ function knownVulnerableComponentChallenge () {
     if (count > 0) {
       utils.solve(challenges.knownVulnerableComponentChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
-  models.Complaint.findAndCountAll({
+  ComplaintModel.findAndCountAll({
     where: {
       message: {
         [Op.or]: knownVulnerableComponents()
@@ -196,6 +199,8 @@ function knownVulnerableComponentChallenge () {
     if (count > 0) {
       utils.solve(challenges.knownVulnerableComponentChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
@@ -217,7 +222,7 @@ function knownVulnerableComponents () {
 }
 
 function weirdCryptoChallenge () {
-  models.Feedback.findAndCountAll({
+  FeedbackModel.findAndCountAll({
     where: {
       comment: {
         [Op.or]: weirdCryptos()
@@ -227,8 +232,10 @@ function weirdCryptoChallenge () {
     if (count > 0) {
       utils.solve(challenges.weirdCryptoChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
-  models.Complaint.findAndCountAll({
+  ComplaintModel.findAndCountAll({
     where: {
       message: {
         [Op.or]: weirdCryptos()
@@ -238,6 +245,8 @@ function weirdCryptoChallenge () {
     if (count > 0) {
       utils.solve(challenges.weirdCryptoChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
@@ -252,62 +261,78 @@ function weirdCryptos () {
 }
 
 function typosquattingNpmChallenge () {
-  models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%epilogue-js%' } } }
+  FeedbackModel.findAndCountAll({ where: { comment: { [Op.like]: '%epilogue-js%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingNpmChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
-  models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%epilogue-js%' } } }
+  ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%epilogue-js%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingNpmChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
 function typosquattingAngularChallenge () {
-  models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%anuglar2-qrcode%' } } }
+  FeedbackModel.findAndCountAll({ where: { comment: { [Op.like]: '%anuglar2-qrcode%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingAngularChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
-  models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%anuglar2-qrcode%' } } }
+  ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%anuglar2-qrcode%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingAngularChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
 function hiddenImageChallenge () {
-  models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%pickle rick%' } } }
+  FeedbackModel.findAndCountAll({ where: { comment: { [Op.like]: '%pickle rick%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.hiddenImageChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
-  models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%pickle rick%' } } }
+  ComplaintModel.findAndCountAll({ where: { message: { [Op.like]: '%pickle rick%' } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.hiddenImageChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
 function supplyChainAttackChallenge () {
-  models.Feedback.findAndCountAll({ where: { comment: { [Op.or]: eslintScopeVulnIds() } } }
+  FeedbackModel.findAndCountAll({ where: { comment: { [Op.or]: eslintScopeVulnIds() } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.supplyChainAttackChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
-  models.Complaint.findAndCountAll({ where: { message: { [Op.or]: eslintScopeVulnIds() } } }
+  ComplaintModel.findAndCountAll({ where: { message: { [Op.or]: eslintScopeVulnIds() } } }
   ).then(({ count }: { count: number }) => {
     if (count > 0) {
       utils.solve(challenges.supplyChainAttackChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 
@@ -319,7 +344,7 @@ function eslintScopeVulnIds () {
 }
 
 function dlpPastebinDataLeakChallenge () {
-  models.Feedback.findAndCountAll({
+  FeedbackModel.findAndCountAll({
     where: {
       comment: { [Op.and]: dangerousIngredients() }
     }
@@ -327,8 +352,10 @@ function dlpPastebinDataLeakChallenge () {
     if (count > 0) {
       utils.solve(challenges.dlpPastebinDataLeakChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
-  models.Complaint.findAndCountAll({
+  ComplaintModel.findAndCountAll({
     where: {
       message: { [Op.and]: dangerousIngredients() }
     }
@@ -336,6 +363,8 @@ function dlpPastebinDataLeakChallenge () {
     if (count > 0) {
       utils.solve(challenges.dlpPastebinDataLeakChallenge)
     }
+  }).catch(() => {
+    throw new Error('Unable to get data for known vulnerabilities. Please try again')
   })
 }
 

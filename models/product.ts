@@ -5,31 +5,64 @@
 
 /* jslint node: true */
 import utils = require('../lib/utils')
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import BasketItemModel from './basketitem'
+import BasketModel from './basket'
 const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
-module.exports = (sequelize, { STRING, DECIMAL }) => {
-  const Product = sequelize.define('Product', {
-    name: STRING,
+class ProductModel extends Model<
+InferAttributes<ProductModel>,
+InferCreationAttributes<ProductModel>
+> {
+  declare id: CreationOptional<number>
+  declare name: string
+  declare description: string
+  declare price: number
+  declare deluxePrice: number
+  declare image: string
+  declare BasketItem?: CreationOptional<BasketItemModel> // Note this is optional since it's only populated when explicitly requested in code
+}
+
+ProductModel.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    name: DataTypes.STRING,
     description: {
-      type: STRING,
-      set (description) {
+      type: DataTypes.STRING,
+      set (description: string) {
         if (!utils.disableOnContainerEnv()) {
-          utils.solveIf(challenges.restfulXssChallenge, () => { return utils.contains(description, '<iframe src="javascript:alert(`xss`)">') })
+          utils.solveIf(challenges.restfulXssChallenge, () => {
+            return utils.contains(
+              description,
+              '<iframe src="javascript:alert(`xss`)">'
+            )
+          })
         } else {
           description = security.sanitizeSecure(description)
         }
         this.setDataValue('description', description)
       }
     },
-    price: DECIMAL,
-    deluxePrice: DECIMAL,
-    image: STRING
-  }, { paranoid: true })
-
-  Product.associate = ({ Basket, BasketItem }) => {
-    Product.belongsToMany(Basket, { through: BasketItem, foreignKey: { name: 'ProductId', noUpdate: true } })
+    price: DataTypes.DECIMAL,
+    deluxePrice: DataTypes.DECIMAL,
+    image: DataTypes.STRING
+  },
+  {
+    tableName: 'Product',
+    sequelize
   }
+)
 
-  return Product
-}
+export default ProductModel

@@ -4,15 +4,42 @@
  */
 
 /* jslint node: true */
-export = (sequelize, { STRING, INTEGER }) => {
-  const Memory = sequelize.define('Memory', {
-    caption: STRING,
-    imagePath: STRING
-  })
 
-  Memory.associate = ({ User }) => {
-    Memory.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
-  }
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
 
-  return Memory
+class MemoryModel extends Model<
+InferAttributes<MemoryModel>,
+InferCreationAttributes<MemoryModel>
+> {
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare caption: string
+  declare imagePath: string
 }
+
+MemoryModel.init(
+  // @ts-expect-error
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    caption: DataTypes.STRING,
+    imagePath: DataTypes.STRING
+  },
+  {
+    tableName: 'Memory',
+    sequelize
+  }
+)
+
+export default MemoryModel

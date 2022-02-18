@@ -5,16 +5,45 @@
 
 /* jslint node: true */
 import config = require('config')
+import { sequelize } from './index'
+import {
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+  DataTypes,
+  CreationOptional
+} from 'sequelize'
 const security = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-module.exports = (sequelize, { STRING, BOOLEAN }) => {
-  const User = sequelize.define('User', {
+class UserModel extends Model<
+InferAttributes<UserModel>,
+InferCreationAttributes<UserModel>
+> {
+  declare id: CreationOptional<number>
+  declare username: string | undefined
+  declare email: CreationOptional<string>
+  declare password: CreationOptional<string>
+  declare role: CreationOptional<string>
+  declare deluxeToken: CreationOptional<string>
+  declare lastLoginIp: CreationOptional<string>
+  declare profileImage: CreationOptional<string>
+  declare totpSecret: CreationOptional<string>
+  declare isActive: CreationOptional<boolean>
+}
+
+UserModel.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     username: {
-      type: STRING,
+      type: DataTypes.STRING,
       defaultValue: '',
-      set (username) {
+      set (username: string) {
         if (!utils.disableOnContainerEnv()) {
           username = security.sanitizeLegacy(username)
         } else {
@@ -24,11 +53,16 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       }
     },
     email: {
-      type: STRING,
+      type: DataTypes.STRING,
       unique: true,
-      set (email) {
+      set (email: string) {
         if (!utils.disableOnContainerEnv()) {
-          utils.solveIf(challenges.persistedXssUserChallenge, () => { return utils.contains(email, '<iframe src="javascript:alert(`xss`)">') })
+          utils.solveIf(challenges.persistedXssUserChallenge, () => {
+            return utils.contains(
+              email,
+              '<iframe src="javascript:alert(`xss`)">'
+            )
+          })
         } else {
           email = security.sanitizeSecure(email)
         }
@@ -36,52 +70,71 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       }
     },
     password: {
-      type: STRING,
+      type: DataTypes.STRING,
       set (clearTextPassword) {
         this.setDataValue('password', security.hash(clearTextPassword))
       }
     },
     role: {
-      type: STRING,
+      type: DataTypes.STRING,
       defaultValue: 'customer',
       validate: {
         isIn: [['customer', 'deluxe', 'accounting', 'admin']]
       },
-      set (role) {
+      set (role: string) {
         const profileImage = this.getDataValue('profileImage')
-        if (role === security.roles.admin && (!profileImage || profileImage === '/assets/public/images/uploads/default.svg')) {
-          this.setDataValue('profileImage', '/assets/public/images/uploads/defaultAdmin.png')
+        if (
+          role === security.roles.admin &&
+          (!profileImage ||
+            profileImage === '/assets/public/images/uploads/default.svg')
+        ) {
+          this.setDataValue(
+            'profileImage',
+            '/assets/public/images/uploads/defaultAdmin.png'
+          )
         }
         this.setDataValue('role', role)
       }
     },
     deluxeToken: {
-      type: STRING,
+      type: DataTypes.STRING,
       defaultValue: ''
     },
     lastLoginIp: {
-      type: STRING,
+      type: DataTypes.STRING,
       defaultValue: '0.0.0.0'
     },
     profileImage: {
-      type: STRING,
+      type: DataTypes.STRING,
       defaultValue: '/assets/public/images/uploads/default.svg'
     },
     totpSecret: {
-      type: STRING,
+      type: DataTypes.STRING,
       defaultValue: ''
     },
     isActive: {
-      type: BOOLEAN,
+      type: DataTypes.BOOLEAN,
       defaultValue: true
     }
-  }, { paranoid: true })
+  },
+  {
+    tableName: 'User',
+    sequelize
+  }
+)
 
-  User.addHook('afterValidate', (user) => {
-    if (user.email && user.email.toLowerCase() === `acc0unt4nt@${config.get('application.domain')}`.toLowerCase()) {
-      return Promise.reject(new Error('Nice try, but this is not how the "Ephemeral Accountant" challenge works!'))
-    }
-  })
+UserModel.addHook('afterValidate', (user: UserModel) => {
+  if (
+    user.email &&
+    user.email.toLowerCase() ===
+      `acc0unt4nt@${config.get('application.domain')}`.toLowerCase()
+  ) {
+    return Promise.reject(
+      new Error(
+        'Nice try, but this is not how the "Ephemeral Accountant" challenge works!'
+      )
+    )
+  }
+})
 
-  return User
-}
+export default UserModel

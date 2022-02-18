@@ -4,11 +4,39 @@
  */
 
 /* jslint node: true */
-export = (sequelize, { STRING, INTEGER }) => {
-  const Card = sequelize.define('Card', {
-    fullName: STRING,
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
+
+class CardModel extends Model<
+InferAttributes<CardModel>,
+InferCreationAttributes<CardModel>
+> {
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare fullName: string
+  declare cardNum: number
+  declare expMonth: number
+  declare expYear: number
+}
+
+CardModel.init(
+  // @ts-expect-error
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    fullName: DataTypes.STRING,
     cardNum: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       validate: {
         isInt: true,
         min: 1000000000000000,
@@ -16,7 +44,7 @@ export = (sequelize, { STRING, INTEGER }) => {
       }
     },
     expMonth: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       validate: {
         isInt: true,
         min: 1,
@@ -24,18 +52,18 @@ export = (sequelize, { STRING, INTEGER }) => {
       }
     },
     expYear: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       validate: {
         isInt: true,
         min: 2080,
         max: 2099
       }
     }
-  })
-
-  Card.associate = ({ User }) => {
-    Card.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
+  },
+  {
+    tableName: 'Card',
+    sequelize
   }
+)
 
-  return Card
-}
+export default CardModel

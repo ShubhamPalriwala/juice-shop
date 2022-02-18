@@ -1,0 +1,4 @@
+
+> juice-shop@13.3.0-SNAPSHOT lint:fix
+> eslint *.[jt]s data lib models routes test views rsn --fix && cd frontend && ng lint --fix && npx stylelint "**/*.scss" --fix && cd ..
+

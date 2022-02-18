@@ -3,12 +3,44 @@
  * SPDX-License-Identifier: MIT
  */
 
+import {
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+  DataTypes
+} from 'sequelize'
+import { sequelize } from './index'
+import UserModel from './user'
 /* jslint node: true */
-export = (sequelize, { STRING, INTEGER }) => {
-  const Address = sequelize.define('Address', {
-    fullName: STRING,
+class AddressModel extends Model<
+InferAttributes<AddressModel>,
+InferCreationAttributes<AddressModel>
+> {
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare fullName: string
+  declare mobileNum: number
+  declare zipCode: string
+  declare streetAddress: string
+  declare city: string
+  declare state: string | null
+  declare country: string
+}
+
+AddressModel.init(
+  // @ts-expect-error
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    fullName: {
+      type: DataTypes.STRING
+    },
     mobileNum: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
       validate: {
         isInt: true,
         min: 1000000,
@@ -16,25 +48,25 @@ export = (sequelize, { STRING, INTEGER }) => {
       }
     },
     zipCode: {
-      type: STRING,
+      type: DataTypes.STRING,
       validate: {
         len: [1, 8]
       }
     },
     streetAddress: {
-      type: STRING,
+      type: DataTypes.STRING,
       validate: {
         len: [1, 160]
       }
     },
-    city: STRING,
-    state: STRING,
-    country: STRING
-  })
-
-  Address.associate = ({ User }) => {
-    Address.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
+    city: DataTypes.STRING,
+    state: DataTypes.STRING,
+    country: DataTypes.STRING
+  },
+  {
+    tableName: 'Address',
+    sequelize
   }
+)
 
-  return Address
-}
+export default AddressModel

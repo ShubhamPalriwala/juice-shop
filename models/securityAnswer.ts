@@ -4,23 +4,47 @@
  */
 
 /* jslint node: true */
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional
+} from 'sequelize'
+import { sequelize } from './index'
+import SecurityQuestionModel from './securityQuestion'
+import UserModel from './user'
 const security = require('../lib/insecurity')
 
-export = (sequelize, { STRING, INTEGER }) => {
-  const SecurityAnswer = sequelize.define('SecurityAnswer', {
+class SecurityAnswerModel extends Model<
+InferAttributes<SecurityAnswerModel>,
+InferCreationAttributes<SecurityAnswerModel>
+> {
+  declare SecurityQuestionId: number
+  declare UserId: number
+  declare id: CreationOptional<number>
+  declare answer: string
+}
+
+SecurityAnswerModel.init(
+  // @ts-expect-error
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     answer: {
-      type: STRING,
+      type: DataTypes.STRING,
       set (answer) {
         this.setDataValue('answer', security.hmac(answer))
       }
-    },
-    UserId: { type: INTEGER, unique: true }
-  })
-
-  SecurityAnswer.associate = ({ User, SecurityQuestion }) => {
-    SecurityAnswer.belongsTo(User)
-    SecurityAnswer.belongsTo(SecurityQuestion, { constraints: true, foreignKeyConstraint: true })
+    }
+  },
+  {
+    tableName: 'SecurityAnswer',
+    sequelize
   }
+)
 
-  return SecurityAnswer
-}
+export default SecurityAnswerModel
