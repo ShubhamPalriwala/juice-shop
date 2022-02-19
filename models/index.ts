@@ -25,6 +25,7 @@ sequelizeNoUpdateAttributes(sequelize)
 import AddressModel from './address'
 import BasketModel from './basket'
 import BasketItemModel from './basketitem'
+import CardModel from './card'
 import ComplaintModel from './complaint'
 import FeedbackModel from './feedback'
 import ImageCaptchaModel from './imageCaptcha'
@@ -40,17 +41,28 @@ import WalletModel from './wallet'
 
 AddressModel.belongsTo(UserModel, {
   constraints: true,
-  foreignKeyConstraint: true
+  foreignKeyConstraint: true,
+  foreignKey:{
+    name:'UserId'
+  }
 })
 BasketModel.belongsTo(UserModel, {
   constraints: true,
-  foreignKeyConstraint: true
+  foreignKeyConstraint: true,
+  foreignKey:{
+    name:"UserId"
+  }
 })
 BasketModel.belongsToMany(ProductModel, {
   through: BasketItemModel,
   foreignKey: {
     name: 'BasketId'
     // TODO noUpdate: true
+  }
+})
+CardModel.belongsTo(UserModel,{
+  foreignKey:{
+    name:'UserId'
   }
 })
 ComplaintModel.belongsTo(UserModel, {
@@ -77,7 +89,10 @@ ProductModel.belongsToMany(BasketModel, {
 })
 QuantityModel.belongsTo(ProductModel, {
   constraints: true,
-  foreignKeyConstraint: true
+  foreignKeyConstraint: true,
+  foreignKey:{
+    name:'ProductId'
+  }
 })
 RecycleModel.belongsTo(UserModel, {
   constraints: true,
@@ -94,10 +109,10 @@ SecurityAnswerModel.belongsTo(SecurityQuestionModel, {
 })
 WalletModel.belongsTo(UserModel, {
   constraints: true,
-  foreignKeyConstraint: true
+  foreignKeyConstraint: true,
+  foreignKey:{
+    name:'UserId',
+    allowNull:true
+  }
 })
-
-sequelize
-  .sync({ force: false, logging: false })
-
 export { sequelize }

@@ -12,8 +12,8 @@ const challenges = require('../data/datacache').challenges
 const security = require('../lib/insecurity')
 
 module.exports.addBasketItem = function addBasketItem () {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const result = utils.parseJsonCustom(req.body) // Discuss this change once
+  return (req: { rawBody: any }, res: Response, next: NextFunction) => {
+    const result = utils.parseJsonCustom(req.rawBody)
     const productIds = []
     const basketIds = []
     const quantities = []
