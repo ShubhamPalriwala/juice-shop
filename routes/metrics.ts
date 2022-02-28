@@ -190,50 +190,34 @@ exports.observeMetrics = function observeMetrics () {
 
     orders.count({}).then((orderCount: Number) => {
       orderMetrics.set(orderCount)
-    }).catch((_: unknown) => {
-      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
     reviews.count({}).then((reviewCount: Number) => {
       interactionsMetrics.set({ type: 'review' }, reviewCount)
-    }).catch((_: unknown) => {
-      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
     UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }).then((count: number) => {
       userMetrics.set({ type: 'standard' }, count)
-    }).catch((_: unknown) => {
-      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
     UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then((count: number) => {
       userMetrics.set({ type: 'deluxe' }, count)
-    }).catch((_: unknown) => {
-      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
     UserModel.count().then((count: Number) => {
       userTotalMetrics.set(count)
-    }).catch((_: unknown) => {
-      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
     WalletModel.sum('balance').then((totalBalance: Number) => {
       walletMetrics.set(totalBalance)
-    }).catch((_: unknown) => {
-      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
     FeedbackModel.count().then((count: number) => {
       interactionsMetrics.set({ type: 'feedback' }, count)
-    }).catch((_: unknown) => {
-      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
 
     ComplaintModel.count().then((count: number) => {
       interactionsMetrics.set({ type: 'complaint' }, count)
-    }).catch((_: unknown) => {
-      throw new Error('Somthing went wrong fetching the orders. Please try again')
     })
   }, 5000)
 

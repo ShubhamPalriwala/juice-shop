@@ -20,7 +20,7 @@ InferCreationAttributes<WalletModel>
 > {
   declare UserId: number
   declare id: CreationOptional<number>
-  declare balance: number
+  declare balance: CreationOptional<number>
 }
 
 WalletModel.init(

@@ -51,8 +51,6 @@ const entities: {
   SecurityQuestionModel:require('./securityQuestion')
 };
 
-console.log("Fila chala");
-
 AddressModel.belongsTo(UserModel, {
   constraints: true,
   foreignKeyConstraint: true,
