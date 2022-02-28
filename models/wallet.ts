@@ -45,9 +45,4 @@ WalletModel.init(
   }
 )
 
-WalletModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
-
 export default WalletModel

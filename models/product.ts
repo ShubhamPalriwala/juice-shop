@@ -65,13 +65,4 @@ ProductModel.init(
   }
 )
 
-ProductModel.belongsToMany(BasketModel, {
-  through: BasketItemModel,
-  foreignKey: {
-    name: 'ProductId'
-    // noUpdate: true
-    // TODO
-  }
-})
-
 export default ProductModel

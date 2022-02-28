@@ -69,9 +69,4 @@ AddressModel.init(
   }
 )
 
-AddressModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
-
 export default AddressModel

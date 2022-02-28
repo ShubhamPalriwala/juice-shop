@@ -42,9 +42,4 @@ MemoryModel.init(
   }
 )
 
-MemoryModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
-
 export default MemoryModel

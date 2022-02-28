@@ -45,9 +45,4 @@ PrivacyRequestModel.init(
   }
 )
 
-PrivacyRequestModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
-
 export default PrivacyRequestModel

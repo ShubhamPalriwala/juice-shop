@@ -6,6 +6,8 @@
 /* jslint node: true */
 const sequelizeNoUpdateAttributes = require('sequelize-notupdate-attributes')
 const Sequelize = require('sequelize')
+console.log("db index aaya");
+
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
   retry: {
@@ -17,6 +19,10 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   storage: 'data/juiceshop.sqlite',
   logging: false
 })
+// console.log("seq obj",sequelize);
+
 sequelizeNoUpdateAttributes(sequelize)
+require("./relations")
+// console.log("after seq obj",sequelize);
 
 export { sequelize }

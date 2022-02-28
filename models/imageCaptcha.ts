@@ -42,6 +42,4 @@ ImageCaptchaModel.init(
   }
 )
 
-ImageCaptchaModel.belongsTo(UserModel)
-
 export default ImageCaptchaModel

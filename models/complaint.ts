@@ -42,9 +42,4 @@ ComplaintModel.init(
   }
 )
 
-ComplaintModel.belongsTo(UserModel, {
-  constraints: true,
-  foreignKeyConstraint: true
-})
-
 export default ComplaintModel
