@@ -48,7 +48,7 @@ QuantityModel.init(
     }
   },
   {
-    tableName: 'Quantity',
+    tableName: 'Quantities',
     sequelize
   }
 )

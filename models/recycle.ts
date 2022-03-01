@@ -42,7 +42,7 @@ RecycleModel.init(
     date: DataTypes.DATE
   },
   {
-    tableName: 'Recycle',
+    tableName: 'Recycles',
     sequelize
   }
 )

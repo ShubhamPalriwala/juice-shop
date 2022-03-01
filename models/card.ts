@@ -61,7 +61,7 @@ CardModel.init(
     }
   },
   {
-    tableName: 'Card',
+    tableName: 'Cards',
     sequelize
   }
 )

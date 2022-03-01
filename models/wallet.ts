@@ -40,7 +40,7 @@ WalletModel.init(
     }
   },
   {
-    tableName: 'Wallet',
+    tableName: 'Wallets',
     sequelize
   }
 )

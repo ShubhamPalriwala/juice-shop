@@ -39,7 +39,7 @@ BasketModel.init(
     coupon: DataTypes.STRING
   },
   {
-    tableName: 'Basket',
+    tableName: 'Baskets',
     sequelize
   }
 )

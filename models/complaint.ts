@@ -37,7 +37,7 @@ ComplaintModel.init(
     file: DataTypes.STRING
   },
   {
-    tableName: 'Complaint',
+    tableName: 'Complaints',
     sequelize
   }
 )

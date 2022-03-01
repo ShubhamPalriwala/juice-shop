@@ -37,7 +37,7 @@ MemoryModel.init(
     imagePath: DataTypes.STRING
   },
   {
-    tableName: 'Memory',
+    tableName: 'Memories',
     sequelize
   }
 )

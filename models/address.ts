@@ -64,7 +64,7 @@ AddressModel.init(
     country: DataTypes.STRING
   },
   {
-    tableName: 'Address',
+    tableName: 'Addresses',
     sequelize
   }
 )

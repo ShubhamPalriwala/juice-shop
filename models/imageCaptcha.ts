@@ -37,7 +37,7 @@ ImageCaptchaModel.init(
     createdAt: DataTypes.DATE
   },
   {
-    tableName: 'ImageCaptcha',
+    tableName: 'ImageCaptchas',
     sequelize
   }
 )

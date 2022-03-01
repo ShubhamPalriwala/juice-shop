@@ -66,7 +66,7 @@ FeedbackModel.init(
     }
   },
   {
-    tableName: 'Feedback',
+    tableName: 'Feedbacks',
     sequelize
   }
 )

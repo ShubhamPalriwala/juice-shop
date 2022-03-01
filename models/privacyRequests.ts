@@ -40,7 +40,7 @@ PrivacyRequestModel.init(
     }
   },
   {
-    tableName: 'PrivacyRequest',
+    tableName: 'PrivacyRequests',
     sequelize
   }
 )
