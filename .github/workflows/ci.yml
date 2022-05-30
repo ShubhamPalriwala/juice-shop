@@ -256,7 +256,7 @@ jobs:
         # Uncomment before PR
         run: npm install
       - name: "Execute end-to-end tests"
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3 #v3.1.0
         with:
           install: false
           browser: chrome
@@ -331,7 +331,7 @@ jobs:
   #       run: docker-compose -f docker-compose.test.yml up --exit-code-from sut
   # docker:
   #   if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-  #   needs: [test, api-test, e2e, e2e-in-subfolder, custom-config-test, docker-test]
+  #   needs: [test, api-test, e2e, e2e-with-cypress, e2e-in-subfolder, custom-config-test, docker-test]
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: "Check out Git repository"
@@ -380,7 +380,7 @@ jobs:
   #           BUILD_DATE=${{ env.BUILD_DATE }}
   # heroku:
   #   if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-  #   needs: [test, api-test, e2e, e2e-in-subfolder, custom-config-test]
+  #   needs: [test, api-test, e2e, e2e-with-cypress, e2e-in-subfolder, custom-config-test]
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: "Check out Git repository"
