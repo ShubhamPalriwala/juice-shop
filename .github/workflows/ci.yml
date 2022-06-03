@@ -259,36 +259,54 @@ jobs:
       - name: "Install application"
         run: npm install
 
-      - name: "Execute end-to-end tests on Windows"
-        if: ${{ matrix.os == 'windows-latest' }}
-        uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3 #v3.1.0
-        with:
-          install: false
-          browser: ${{ matrix.browser }}
-          start: npm start
-          wait-on: http://localhost:3000
-        env:
-          CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
+      # - name: "Execute end-to-end tests on Windows"
+      #   if: ${{ matrix.os == 'windows-latest' }}
+      #   uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3 #v3.1.0
+      #   with:
+      #     install: false
+      #     browser: ${{ matrix.browser }}
+      #     start: npm start
+      #     wait-on: http://localhost:3000
+      #   env:
+      #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
 
-      - name: "Execute end-to-end tests on Ubuntu"
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3 #v3.1.0
-        with:
-          install: false
-          browser: ${{ matrix.browser }}
-          start: npm start
-          wait-on: http://localhost:3000
+      # - name: "Execute end-to-end tests on Ubuntu"
+      #   if: ${{ matrix.os == 'ubuntu-latest' }}
+      #   uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3 #v3.1.0
+      #   with:
+      #     install: false
+      #     browser: ${{ matrix.browser }}
+      #     start: npm start
+      #     wait-on: http://localhost:3000
 
-      - name: "Execute end-to-end tests on Mac"
-        if: ${{ matrix.os == 'macos-latest' }}
+      # - name: "Execute end-to-end tests on Mac"
+      #   if: ${{ matrix.os == 'macos-latest' }}
+      #   uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3 #v3.1.0
+      #   with:
+      #     install: false
+      #     browser: ${{ matrix.browser }}
+      #     start: npm start
+      #     wait-on: http://localhost:3000
+      #   env:
+      #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
+
+      - name: "Setup end-to-end tests"
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            echo "Hi Windows"
+            set CYPRESS_CACHE_FOLDER=C:\Users\runneradmin\AppData\Local\Cypress\Cache
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            echo "Hi Mac"
+            set CYPRESS_CACHE_FOLDER=/Users/runner/Library/Caches/Cypress
+          fi
+        shell: bash
+      - name: "Run end-to-end tests"
         uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3 #v3.1.0
         with:
           install: false
           browser: ${{ matrix.browser }}
           start: npm start
           wait-on: http://localhost:3000
-        env:
-          CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
 
   e2e-in-subfolder:
     runs-on: windows-latest
