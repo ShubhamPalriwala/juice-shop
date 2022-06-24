@@ -27,6 +27,11 @@ export default (on, config) => {
     GenerateCoupon(discount: number) {
       return security.generateCoupon(discount);
     },
+    GetKeywordsForPastebinDataLeakChallenge() {
+      return Config.get<Product[]>("products").filter(
+        (product: Product) => product.keywordsForPastebinDataLeakChallenge
+      )[0];
+    },
     GetBlueprint() {
       for (const product of Config.get<Product[]>("products")) {
         if (product.fileForRetrieveBlueprintChallenge) {
