@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { Challenge } from "../../data/types";
+import 'cypress-file-upload';
 
 Cypress.Commands.add(
   "expectChallengeSolved",
