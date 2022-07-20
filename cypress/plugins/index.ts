@@ -23,6 +23,9 @@ import * as utils from "../../lib/utils";
 const security = require("../../lib/insecurity");
 
 export default (on, config) => {
+  require("@cypress/code-coverage/task")(on, config)  
+  config.env.codeCoverageTasksRegistered = true
+
   on("task", {
     GenerateCoupon(discount: number) {
       return security.generateCoupon(discount);
@@ -68,6 +71,7 @@ export default (on, config) => {
       return utils.disableOnWindowsEnv();
     },
   });
+  return config;
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 };
