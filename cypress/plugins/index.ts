@@ -15,7 +15,7 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-
+import * as path from "path";
 import * as Config from "config";
 import * as otplib from "otplib";
 import { Memory, Product } from "../../data/types";
@@ -26,6 +26,11 @@ export default (on, config) => {
   on("task", {
     GenerateCoupon(discount: number) {
       return security.generateCoupon(discount);
+    },
+    GetKeywordsForPastebinDataLeakChallenge() {
+      return Config.get<Product[]>("products").filter(
+        (product: Product) => product.keywordsForPastebinDataLeakChallenge
+      )[0];
     },
     GetBlueprint() {
       for (const product of Config.get<Product[]>("products")) {
@@ -56,6 +61,9 @@ export default (on, config) => {
     },
     GenerateAuthenticator(inputString: string) {
       return otplib.authenticator.generate(inputString);
+    },
+    GetPath(file: string) {
+      return path.resolve(file);
     },
     toISO8601() {
       let date = new Date();
